@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANMAR · Plenitude</title>
+  <meta name="description" content="Apresentação interativa da marca ANMAR — conceito, símbolo, cores, tipografia, texturas e aplicações.">
+  <meta name="theme-color" content="#F7F1E5">
+  <link rel="icon" type="image/svg+xml" href="assets/simbolo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://lh3.googleusercontent.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="is-loading">
+
+  <!-- Loader: o símbolo se desenha -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__mark" data-logo="symbol-stroke"></div>
+    <div class="loader__count"><span>0</span>%</div>
+    <p class="loader__tag">Plenitude para viver</p>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><em></em></span></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <header class="nav">
+    <a href="#topo" class="nav__logo" aria-label="ANMAR — início" data-logo="principal"></a>
+    <nav class="nav__links" aria-label="Seções">
+      <a href="#encontro">Conceito</a>
+      <a href="#construcao">Símbolo</a>
+      <a href="#identidade">Identidade</a>
+      <a href="#showroom">3D</a>
+      <a href="#aplicacoes">Aplicações</a>
+      <a href="#digital">Digital</a>
+    </nav>
+    <button class="nav__menu" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main id="topo">
+
+    <!-- HERO ─────────────────────────────────────────── -->
+    <section class="hero" data-theme="light">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="orb orb--1"></span><span class="orb orb--2"></span><span class="orb orb--3"></span>
+        <span class="beam"></span>
+      </div>
+      <canvas class="hero__canvas" aria-label="Símbolo ANMAR em 3D — arraste para girar"></canvas>
+      <div class="hero__copy">
+        <p class="eyebrow reveal-up">Brandbook interativo · Clínica ANMAR</p>
+        <h1 class="hero__title" data-split>Plenitude<br>para viver.</h1>
+        <p class="hero__sub reveal-up">Saúde, longevidade<br>e qualidade de vida.</p>
+      </div>
+      <div class="hero__hint" aria-hidden="true">
+        <span class="hero__drag">Arraste o símbolo</span>
+        <span class="hero__scroll"><i></i>Role para descobrir</span>
+      </div>
+    </section>
+
+    <!-- MANIFESTO ─────────────────────────────────────── -->
+    <section class="manifesto" data-theme="light">
+      <p class="eyebrow">Manifesto</p>
+      <p class="manifesto__text" data-words>Viver mais e viver melhor. O cuidado acompanha a vida — saúde para ter disposição, autonomia e presença no que importa. Corpo, emoções e sentido. Cada história merece atenção.</p>
+    </section>
+
+    <!-- O ENCONTRO ────────────────────────────────────── -->
+    <section class="encontro" id="encontro" data-theme="dark">
+      <div class="encontro__pin">
+        <div class="encontro__glow" aria-hidden="true"></div>
+        <p class="eyebrow encontro__eyebrow">01 · O conceito</p>
+        <div class="encontro__stage">
+          <div class="names" aria-hidden="true">
+            <div class="name name--a"><b>Â</b><b>N</b><i>g</i><i>e</i><i>l</i><i>o</i></div>
+            <div class="name name--m"><b>M</b><b>A</b><b>R</b><i>i</i><i>n</i><i>a</i></div>
+          </div>
+          <div class="encontro__word" data-logo="wordmark-letters" aria-label="ANMAR"></div>
+          <div class="encontro__symbol" data-logo="symbol-duo" aria-hidden="true"></div>
+        </div>
+        <div class="encontro__captions">
+          <p class="cap cap--1"><em>Ângelo</em> e <em>Marina</em>. Duas histórias, duas missões.</p>
+          <p class="cap cap--2">Das iniciais nasce um nome: <strong>AN</strong> + <strong>MAR</strong>.</p>
+          <p class="cap cap--3">E dentro dele, uma palavra: <strong>AMAR</strong>.</p>
+          <p class="cap cap--4">Duas linhas que convergem para a plenitude.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSTRUÇÃO DO SÍMBOLO ─────────────────────────── -->
+    <section class="construcao" id="construcao" data-theme="light">
+      <div class="construcao__pin">
+        <div class="construcao__art">
+          <svg class="grid" viewBox="0 0 842 598" aria-hidden="true">
+            <defs>
+              <linearGradient id="goldFill" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#D9C291"/><stop offset=".45" stop-color="#B49A62"/><stop offset="1" stop-color="#8C7646"/>
+              </linearGradient>
+              <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g class="g-grid"></g>
+            <g class="g-guides">
+              <circle cx="300" cy="108" r="96"/>
+              <circle cx="560" cy="118" r="120"/>
+              <circle cx="472" cy="300" r="140"/>
+              <line x1="0" y1="438" x2="842" y2="438"/>
+              <line x1="0" y1="2" x2="842" y2="2"/>
+              <line x1="0" y1="236" x2="842" y2="236"/>
+              <line x1="80" y1="438" x2="300" y2="0"/>
+              <line x1="776" y1="0" x2="776" y2="438"/>
+            </g>
+            <g class="g-symbol"></g>
+            <g class="g-word"></g>
+          </svg>
+          <div class="construcao__labels" aria-hidden="true">
+            <span class="lbl lbl--a">A · Ângelo</span>
+            <span class="lbl lbl--m">M · Marina</span>
+            <span class="lbl lbl--c">curva da plenitude</span>
+          </div>
+        </div>
+        <div class="construcao__steps">
+          <p class="eyebrow">02 · Construção do símbolo</p>
+          <ol>
+            <li class="step is-active"><span>01</span><h3>Grade e proporção</h3><p>Um campo equilibrado, onde cada curva encontra seu lugar com calma e precisão.</p></li>
+            <li class="step"><span>02</span><h3>Duas linhas</h3><p>O traço do <em>A</em> e o traço do <em>M</em> nascem separados — como duas trajetórias de vida.</p></li>
+            <li class="step"><span>03</span><h3>A curva que une</h3><p>Uma onda contínua atravessa as letras e as transforma em um só gesto: o encontro.</p></li>
+            <li class="step"><span>04</span><h3>A assinatura</h3><p>O monograma dourado repousa sobre o nome em serifa clássica — tradição e acolhimento.</p></li>
+          </ol>
+          <div class="construcao__bar"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PILARES ───────────────────────────────────────── -->
+    <section class="pilares" data-theme="dark">
+      <div class="section-head">
+        <p class="eyebrow">03 · Essência</p>
+        <h2 class="h2" data-split>Plenitude em<br><em>quatro dimensões.</em></h2>
+      </div>
+      <div class="pilares__grid"></div>
+    </section>
+
+    <!-- IDENTIDADE: versões da logo ───────────────────── -->
+    <section class="identidade" id="identidade" data-theme="light">
+      <div class="section-head">
+        <p class="eyebrow">04 · Assinatura</p>
+        <h2 class="h2" data-split>Uma marca,<br><em>muitas superfícies.</em></h2>
+      </div>
+      <div class="versions">
+        <div class="versions__tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-v="principal">Principal</button>
+          <button role="tab" aria-selected="false" data-v="negativa">Negativa</button>
+          <button role="tab" aria-selected="false" data-v="monocromatica">Monocromática</button>
+          <button role="tab" aria-selected="false" data-v="simbolo">Símbolo</button>
+        </div>
+        <div class="versions__stage" data-v="principal">
+          <div class="versions__light" aria-hidden="true"></div>
+          <div class="versions__logo"></div>
+          <div class="versions__clear" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="versions__tools">
+          <label class="switch"><input type="checkbox" class="toggle-clear"><span></span>Área de proteção</label>
+          <a class="btn btn--ghost dl-logo" href="assets/logo-principal.svg" download>Baixar SVG</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORES ─────────────────────────────────────────── -->
+    <section class="cores" data-theme="light">
+      <div class="section-head">
+        <p class="eyebrow">05 · Paleta</p>
+        <h2 class="h2" data-split>Cores de luz natural,<br><em>linho e pedra clara.</em></h2>
+        <p class="lead">Passe o mouse para revelar os valores. Clique para copiar o HEX.</p>
+      </div>
+      <div class="swatches"></div>
+      <div class="toast" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- TIPOGRAFIA ────────────────────────────────────── -->
+    <section class="tipografia" data-theme="light">
+      <div class="section-head">
+        <p class="eyebrow">06 · Tipografia</p>
+        <h2 class="h2" data-split>Serifa que acolhe,<br><em>sans que informa.</em></h2>
+      </div>
+      <div class="type-cards">
+        <article class="type-card type-card--serif">
+          <div class="type-card__aa">Aa</div>
+          <div><h3>Baskerville</h3><p>Títulos e frases de marca.</p></div>
+        </article>
+        <article class="type-card type-card--sans">
+          <div class="type-card__aa">Aa</div>
+          <div><h3>Inter</h3><p>Informações, textos de apoio e interface.</p></div>
+        </article>
+      </div>
+      <div class="tester">
+        <div class="tester__controls">
+          <div class="seg" role="group" aria-label="Fonte">
+            <button class="is-on" data-f="serif">Baskerville</button><button data-f="sans">Inter</button>
+          </div>
+          <label class="range">Tamanho <input type="range" min="28" max="140" value="84"></label>
+        </div>
+        <p class="tester__text" contenteditable="true" spellcheck="false">Sua vida, em plenitude.</p>
+      </div>
+      <div class="glyphs" aria-hidden="true"></div>
+    </section>
+
+    <!-- TEXTURAS ──────────────────────────────────────── -->
+    <section class="texturas" data-theme="dark">
+      <div class="section-head">
+        <p class="eyebrow">07 · Texturas</p>
+        <h2 class="h2" data-split>O símbolo vira<br><em>superfície.</em></h2>
+        <p class="lead">Mova o mouse sobre as camadas.</p>
+      </div>
+      <div class="layers">
+        <canvas class="layers__canvas" aria-label="Pattern Camadas Translúcidas gerado a partir do símbolo"></canvas>
+      </div>
+      <div class="patterns"></div>
+    </section>
+
+    <!-- SHOWROOM 3D ───────────────────────────────────── -->
+    <section class="showroom" id="showroom" data-theme="dark">
+      <div class="showroom__head">
+        <p class="eyebrow">08 · Showroom 3D</p>
+        <h2 class="h2" data-split>Toque, gire,<br><em>experimente.</em></h2>
+      </div>
+      <div class="showroom__viewport">
+        <canvas class="showroom__canvas" aria-label="Mockups 3D interativos da marca"></canvas>
+        <div class="showroom__ui">
+          <div class="showroom__tabs" role="tablist"></div>
+          <div class="showroom__info">
+            <h3 class="showroom__name">Cartão de visita</h3>
+            <p class="showroom__desc">90 × 50 mm</p>
+            <p class="showroom__help"><span>Arraste</span> para girar · <span>Clique</span> no objeto para interagir</p>
+          </div>
+        </div>
+        <div class="showroom__loading">Montando a cena…</div>
+      </div>
+    </section>
+
+    <!-- APLICAÇÕES: destaque horizontal ───────────────── -->
+    <section class="reel" id="aplicacoes" data-theme="light">
+      <div class="reel__pin">
+        <div class="reel__track">
+          <div class="reel__head">
+            <p class="eyebrow">09 · Aplicações</p>
+            <h2 class="h2">A marca<br><em>no mundo.</em></h2>
+            <p class="lead">Mockups oficiais da marca. Clique para ampliar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA COMPLETA ──────────────────────────────── -->
+    <section class="galeria" data-theme="light">
+      <div class="section-head section-head--row">
+        <h2 class="h2">Todas as<br><em>aplicações.</em></h2>
+        <div class="filters" role="tablist"></div>
+      </div>
+      <div class="gallery"></div>
+    </section>
+
+    <!-- DIGITAL ───────────────────────────────────────── -->
+    <section class="digital" id="digital" data-theme="dark">
+      <div class="section-head">
+        <p class="eyebrow">10 · Digital</p>
+        <h2 class="h2" data-split>Presença que<br><em>acompanha.</em></h2>
+      </div>
+      <div class="digital__grid">
+        <div class="phone">
+          <div class="phone__body">
+            <div class="phone__screen"></div>
+            <div class="phone__bars"></div>
+            <div class="phone__notch"></div>
+          </div>
+          <p class="caption">Stories · 1080 × 1920</p>
+        </div>
+        <div class="digital__side">
+          <div class="highlights"></div>
+          <div class="feed"></div>
+          <p class="caption">Feed · 1080 × 1350 · destaques</p>
+        </div>
+      </div>
+      <div class="laptop">
+        <div class="laptop__screen"><div class="laptop__page"></div></div>
+        <div class="laptop__base"></div>
+        <p class="caption">Proposta visual do site · passe o mouse para rolar</p>
+      </div>
+    </section>
+
+    <!-- MOVIMENTO ─────────────────────────────────────── -->
+    <section class="movimento" data-theme="dark">
+      <div class="section-head">
+        <p class="eyebrow">11 · Marca em movimento</p>
+        <h2 class="h2" data-split>Animações<br><em>da marca.</em></h2>
+      </div>
+      <div class="videos"></div>
+    </section>
+
+    <!-- FECHAMENTO ────────────────────────────────────── -->
+    <section class="fim" data-theme="light">
+      <div class="fim__symbol" data-logo="symbol"></div>
+      <h2 class="fim__title" data-split><em>AMAR</em> a vida.<br>Viver em plenitude.</h2>
+      <a href="#topo" class="btn">Voltar ao início</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div data-logo="principal" class="footer__logo"></div>
+    <p>ANMAR. AMAR a vida. Viver em plenitude.</p>
+    <p class="footer__small">Brandbook interativo · Guia da Marca “Plenitude”</p>
+  </footer>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Visualização" hidden>
+    <button class="lightbox__close" aria-label="Fechar">×</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Anterior">‹</button>
+    <figure class="lightbox__fig"><div class="lightbox__media"></div><figcaption></figcaption></figure>
+    <button class="lightbox__nav lightbox__next" aria-label="Próxima">›</button>
+  </div>
+</body>
+</html>
