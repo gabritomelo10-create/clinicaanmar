@@ -509,3 +509,46 @@ section { position: relative; }
   .grain { display: none; }
 }
 :focus-visible { outline: 2px solid var(--dourado); outline-offset: 3px; }
+
+/* BRITTO* GROUP ─────────────────────────── */
+.bg-mark { font-family: var(--sans); font-weight: 600; line-height: 1; letter-spacing: .18em; white-space: nowrap; }
+.bg-ast { display: inline-block; color: var(--dourado); margin: 0 .02em 0 .04em; transform-origin: 50% 58%; animation: ast-spin 9s linear infinite; }
+@keyframes ast-spin { to { transform: rotate(360deg); } }
+
+.credit-box {
+  position: relative; pointer-events: auto; margin-top: 40px;
+  display: inline-grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 28px;
+  padding: 18px 22px 18px 24px; border-radius: 18px; text-decoration: none; overflow: hidden;
+  background: linear-gradient(135deg, rgba(255,253,248,.92), rgba(247,241,229,.7));
+  border: 1px solid rgba(180,154,98,.35);
+  box-shadow: 0 24px 50px -28px rgba(101,91,73,.55), inset 0 1px 0 rgba(255,255,255,.7);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: transform .6s var(--ease), box-shadow .6s var(--ease), border-color .5s;
+}
+.credit-box:hover { transform: translateY(-4px); border-color: rgba(180,154,98,.7); box-shadow: 0 34px 60px -28px rgba(101,91,73,.7), inset 0 1px 0 rgba(255,255,255,.7); }
+.credit-box__glow { position: absolute; inset: -40% -20%; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.65) 50%, transparent 65%); transform: translateX(-70%); animation: sweep 5.5s var(--ease) infinite 2s; pointer-events: none; }
+@keyframes sweep { 0%, 60% { transform: translateX(-70%); } 100% { transform: translateX(70%); } }
+.credit-box__label { grid-column: 1; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--dourado); }
+.credit-box .bg-mark { grid-column: 1; font-size: 19px; color: var(--taupe); }
+.credit-box__arrow { grid-column: 2; grid-row: 1 / span 2; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--taupe); color: var(--marfim); font-size: 15px; transition: transform .5s var(--ease), background .4s; }
+.credit-box:hover .credit-box__arrow { transform: rotate(-45deg); background: var(--dourado); }
+
+.credito { min-height: 100svh; display: grid; place-items: center; padding: clamp(120px, 14vw, 200px) var(--gutter); overflow: hidden;
+  background: radial-gradient(70% 60% at 50% 45%, #3d362b, var(--noite) 70%); }
+.credito__light { position: absolute; left: 50%; top: 45%; width: 80vmin; height: 80vmin; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(180,154,98,.32), transparent 65%); filter: blur(30px); }
+.credito__inner { position: relative; text-align: center; max-width: 1200px; width: 100%; }
+.credito__by { font: italic 400 clamp(18px, 2vw, 26px)/1.4 var(--serif); margin: 0 auto 36px; max-width: 32ch; opacity: .85; text-wrap: balance; }
+.credito__mark { margin: 0; font: 600 clamp(52px, 11vw, 190px)/.9 var(--sans); letter-spacing: .04em; display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 0 .12em; color: var(--marfim); }
+.cm-word { background: linear-gradient(180deg, #fff 0%, var(--marfim) 45%, var(--areia) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.cm-ast i { font-style: normal; display: inline-block; transform-origin: 50% 58%; animation: ast-spin 14s linear infinite; }
+.cm-ast { color: var(--dourado); font-size: .7em; line-height: 1; display: inline-block; transform-origin: 50% 58%; margin-top: .02em; text-shadow: 0 0 40px rgba(217,194,145,.6); }
+.credito__list { list-style: none; padding: 0; margin: 56px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 980px; text-align: left; }
+.credito__list li { padding-top: 18px; border-top: 1px solid rgba(217,194,145,.3); font: 400 18px/1.4 var(--serif); min-width: 0; }
+.credito__list span { display: block; font: 500 10px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--ouro-claro); margin-bottom: 10px; }
+@media (max-width: 700px) { .credito__list { grid-template-columns: 1fr; } .credit-box .bg-mark { font-size: 16px; } }
+
+.footer__by { grid-column: 1 / -1; justify-self: start; text-decoration: none; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; transition: opacity .3s; }
+.footer__by:hover { opacity: 1; }
+.footer__by .bg-mark { margin-left: 8px; font-size: 12px; }
+.footer__by .bg-ast { color: var(--ouro-claro); }

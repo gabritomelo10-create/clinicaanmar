@@ -521,6 +521,11 @@ function setupScroll() {
   gsap.from('.laptop', { rotateX: 35, y: 120, opacity: 0, transformPerspective: 1600, transformOrigin: '50% 100%', duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.laptop', start: 'top 90%' } });
   gsap.from('.video', { y: 100, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.videos', start: 'top 88%' } });
 
+  // créditos BRITTO* GROUP
+  gsap.from('.credito__mark .cm-word', { yPercent: 60, opacity: 0, duration: 1.4, stagger: 0.15, ease: 'expo.out', scrollTrigger: { trigger: '.credito__mark', start: 'top 85%' } });
+  gsap.fromTo('.credito__mark .cm-ast', { rotate: -180, scale: 0 }, { rotate: 0, scale: 1, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.credito__mark', start: 'top 85%' } });
+  gsap.from('.credito__list li', { y: 40, opacity: 0, duration: 1.1, stagger: 0.1, ease: 'expo.out', scrollTrigger: { trigger: '.credito__list', start: 'top 90%' } });
+
   // fim
   gsap.fromTo('.fim__symbol', { rotateY: -60, scale: 0.6, opacity: 0 }, { rotateY: 0, scale: 1, opacity: 1, ease: 'none', transformPerspective: 900, scrollTrigger: { trigger: '.fim', start: 'top 85%', end: 'center center', scrub: true } });
 
