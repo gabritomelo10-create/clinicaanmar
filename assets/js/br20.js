@@ -149,7 +149,8 @@
     const W = o.clipW || Infinity, H = o.clipH || Infinity;
     for (let i = 0; i < ds.length; i++) {
       const d = ds[i], line = ls[d.li];
-      const s = d.s + t * line.speed;
+      let s = (d.s + t * line.speed) % line.L;
+      if (s + d.len > line.L) continue;            // traço atravessando o fim da corrente
       pointAt(line, s, P); pointAt(line, s + d.len, Q);
       let x1 = ox + P[0] * size, y1 = oy + P[1] * size, x2 = ox + Q[0] * size, y2 = oy + Q[1] * size;
       if (o.mirror) { x1 = ox + size - (x1 - ox); x2 = ox + size - (x2 - ox); }

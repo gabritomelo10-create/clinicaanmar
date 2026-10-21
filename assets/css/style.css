@@ -327,9 +327,10 @@ section { position: relative; }
 .swatch--gold::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,245,220,.45) 45%, transparent 60%); transform: translateX(-100%); transition: transform 1.4s var(--ease-out); }
 .swatch--gold:hover::after { transform: translateX(100%); }
 .swatch:hover, .swatch:focus-visible { flex: 3.4; box-shadow: 0 40px 80px -30px rgba(38,59,50,.5); outline: none; }
-.swatch__name { font-family: var(--f-title); font-size: clamp(18px, 1.8vw, 30px); white-space: nowrap; writing-mode: vertical-rl; transform: rotate(180deg); align-self: flex-start; transition: .6s var(--ease-out); position: relative; }
+.swatch__name { font-family: var(--f-title); font-size: clamp(16px, 1.5vw, 26px); max-height: 100%; white-space: nowrap; writing-mode: vertical-rl; transform: rotate(180deg); align-self: flex-start; transition: .6s var(--ease-out); position: relative; }
 .swatch:hover .swatch__name, .swatch:focus-visible .swatch__name { writing-mode: horizontal-tb; transform: none; }
-.swatch__meta, .swatch__role { font-size: 14px; line-height: 1.6; opacity: 0; transform: translateY(16px); transition: .5s var(--ease-out); white-space: nowrap; position: relative; }
+.swatch__meta, .swatch__role { font-size: 14px; line-height: 1.6; opacity: 0; transform: translateY(16px); transition: .5s var(--ease-out); white-space: nowrap; position: relative; max-height: 0; overflow: hidden; }
+.swatch:hover .swatch__meta, .swatch:focus-visible .swatch__meta, .swatch:hover .swatch__role, .swatch:focus-visible .swatch__role { max-height: 140px; }
 .swatch__role { font-size: 13px; opacity: 0; margin-top: 10px; letter-spacing: .04em; }
 .swatch:hover .swatch__meta, .swatch:focus-visible .swatch__meta { opacity: .9; transform: none; transition-delay: .25s; }
 .swatch:hover .swatch__role, .swatch:focus-visible .swatch__role { opacity: .75; transform: none; transition-delay: .35s; }
@@ -350,7 +351,7 @@ section { position: relative; }
   .swatches { flex-direction: column; height: auto; }
   .swatch { min-height: 90px; flex: none; }
   .swatch__name { writing-mode: horizontal-tb; transform: none; }
-  .swatch__meta { opacity: .9; transform: none; white-space: normal; }
+  .swatch__meta { opacity: .9; transform: none; white-space: normal; max-height: none; }
   .swatch:hover { flex: none; }
   .palette__grid { grid-template-columns: 1fr; }
 }

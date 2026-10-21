@@ -236,19 +236,19 @@
     const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
     const grid = $('#bGrid'), diag = $('#bDiag'), arcs = $('#bArcs'), gap = $('#bGap'), notes = $('#bNotes');
     const rows = [[45, 'ALTURA'], [312, 'EIXO DOS ARCOS'], [550, 'LINHA DE BASE']];
-    rows.forEach(([y, t]) => { mk('line', { x1: -20, y1: y, x2: 3520, y2: y }, grid); mk('text', { x: -20, y: y - 18 }, grid).textContent = t; });
+    rows.forEach(([y, t]) => { mk('line', { x1: -560, y1: y, x2: 3520, y2: y }, grid); mk('text', { x: -560, y: y - 18 }, grid).textContent = t; });
     [112, 1100, 1750, 2912, 3487].forEach((x) => mk('line', { x1: x, y1: -60, x2: x, y2: 620, class: 'v' }, grid));
     const D = [[112, 537, 587, 45], [587, 45, 1100, 550], [837, 87, 1325, 487], [1325, 487, 1750, 75], [1800, 300, 2175, 562], [2175, 562, 2912, 45], [2912, 45, 3487, 537]];
     D.forEach(([a, b, c, d]) => { mk('line', { x1: a, y1: b, x2: c, y2: d, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, diag); mk('circle', { cx: a, cy: b, r: 12 }, diag); mk('circle', { cx: c, cy: d, r: 12 }, diag); });
     mk('path', { d: 'M 287 462 Q 537 156 862 475', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, arcs);
     mk('path', { d: 'M 2625 462 Q 2925 178 3212 462', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, arcs);
-    mk('path', { d: 'M 1750 75 L 2330 70 A 150 150 0 0 1 2330 330 L 1800 300', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, arcs);
+    mk('path', { d: 'M 1750 72 L 2346 72 A 121 121 0 0 1 2346 315 L 2000 315', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, arcs);
     mk('circle', { cx: 575, cy: 470, r: 300, class: 'guide-circle' }, arcs);
     mk('circle', { cx: 2920, cy: 470, r: 300, class: 'guide-circle' }, arcs);
-    mk('circle', { cx: 2330, cy: 200, r: 130, class: 'guide-circle' }, arcs);
-    mk('circle', { cx: 975, cy: 260, r: 120 }, gap);
-    mk('line', { x1: 1060, y1: 175, x2: 1300, y2: -40 }, gap);
-    mk('text', { x: 1320, y: -50 }, notes).textContent = 'ABERTURA ÓPTICA A / V';
+    mk('circle', { cx: 2346, cy: 193, r: 121, class: 'guide-circle' }, arcs);
+    mk('circle', { cx: 850, cy: 130, r: 95 }, gap);
+    mk('line', { x1: 920, y1: 66, x2: 1120, y2: -70 }, gap);
+    mk('text', { x: 1140, y: -80 }, notes).textContent = 'ABERTURA ÓPTICA A / V';
     const nArc = mk('text', { x: 2560, y: 700 }, notes); nArc.textContent = 'ARCO · MOVIMENTO DA BRISA';
     const nDiag = mk('text', { x: 40, y: 700 }, notes); nDiag.textContent = 'DIAGONAL · FIRMEZA E DIREÇÃO';
 

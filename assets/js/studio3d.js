@@ -228,17 +228,9 @@
   }
   function floorCanvas() {
     const s = 1024, c = B.canvas(s, s), g = c.getContext('2d');
-    B.stone(g, s, s, '#d8c3a2');
+    B.stone(g, s, s, '#bfa47f');
     return c;
   }
-  function radialAlpha() {
-    const s = 512, c = B.canvas(s, s), g = c.getContext('2d');
-    const gr = g.createRadialGradient(s / 2, s / 2, s * 0.12, s / 2, s / 2, s / 2);
-    gr.addColorStop(0, '#fff'); gr.addColorStop(0.55, '#bbb'); gr.addColorStop(1, '#000');
-    g.fillStyle = gr; g.fillRect(0, 0, s, s);
-    return c;
-  }
-
   /* ---------------- objetos ---------------- */
   function buildBadge(renderer) {
     const root = new THREE.Group();
@@ -493,14 +485,19 @@
 
     // piso de travertino que se dissolve no fundo
     const floorT = tex(floorCanvas(), renderer); floorT.wrapS = floorT.wrapT = THREE.RepeatWrapping; floorT.repeat.set(3, 3);
-    const alphaT = tex(radialAlpha(), renderer, { linear: true });
-    const floor = new THREE.Mesh(new THREE.CircleGeometry(9, 64), new THREE.MeshStandardMaterial({ map: floorT, alphaMap: alphaT, transparent: true, roughness: 0.72, metalness: 0, envMapIntensity: 0.6 }));
+    const floorM = new THREE.MeshStandardMaterial({ map: floorT, transparent: true, roughness: 0.72, metalness: 0, envMapIntensity: 0.25 });
+    // o piso se dissolve radialmente no fundo da seção
+    floorM.onBeforeCompile = (sh) => {
+      sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 vFloor;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvFloor = position.xy;');
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec2 vFloor;').replace('#include <dithering_fragment>', '#include <dithering_fragment>\ngl_FragColor.a *= 1.0 - smoothstep(2.2, 8.5, length(vFloor));');
+    };
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(9, 64), floorM);
     floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true;
     scene.add(floor);
 
     // luz do sol + folhas que projetam sombra (invisíveis à câmera)
-    const hemi = new THREE.HemisphereLight(0xfff1de, 0x3a4a3f, 0.55); scene.add(hemi);
-    const sun = new THREE.DirectionalLight(0xffe2bd, 2.4);
+    const hemi = new THREE.HemisphereLight(0xfff1de, 0x3a4a3f, 0.32); scene.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffe2bd, 1.35);
     sun.position.set(4.5, 9, 3.5);
     sun.castShadow = true;
     sun.shadow.mapSize.set(2048, 2048);
@@ -518,7 +515,7 @@
     scene.add(leaves);
 
     // partículas fora de foco
-    const dust = window.AVRA3D.makeDust(160); dust.material.uniforms.uFocus.value = 6; dust.scale.set(0.45, 0.45, 0.45); dust.position.y = 2;
+    const dust = window.AVRA3D.makeDust(90, 0.45); dust.material.uniforms.uFocus.value = 6; dust.scale.set(0.45, 0.45, 0.45); dust.position.y = 2;
     scene.add(dust);
 
     const objects = {
@@ -528,7 +525,11 @@
       phone: buildPhone(renderer),
       placa: buildSign(renderer)
     };
-    Object.values(objects).forEach((o) => { o.visible = false; scene.add(o); });
+    Object.values(objects).forEach((o) => {
+      o.visible = false; scene.add(o);
+      // reflexo de ambiente contido: papéis e tecidos não devem "estourar"
+      o.traverse((m) => { if (m.isMesh) [].concat(m.material).forEach((mt) => { if (mt.envMapIntensity != null && mt.metalness < 0.5) mt.envMapIntensity = 0.3; }); });
+    });
 
     let activeKey = 'cracha', active = objects.cracha; active.visible = true;
     const orbit = { theta: 0.35, phi: active.userData.cam.phi, dist: active.userData.cam.dist, tt: 0.35, tp: active.userData.cam.phi, td: active.userData.cam.dist, target: active.userData.cam.target.clone(), tTarget: active.userData.cam.target.clone() };
@@ -575,7 +576,9 @@
       }
       down = null;
     });
-    canvas.addEventListener('pointerleave', () => document.body.classList.remove('studio-hover'));
+    let inside = false;
+    canvas.addEventListener('pointerenter', () => { inside = true; });
+    canvas.addEventListener('pointerleave', () => { inside = false; document.body.classList.remove('studio-hover'); });
 
     function resize() {
       const w = stage.clientWidth, h = stage.clientHeight;
@@ -612,13 +615,14 @@
 
       // anoitecer (placa)
       const n = objects.placa.userData.night();
-      sun.intensity = 2.4 * (1 - n * 0.85); hemi.intensity = 0.55 * (1 - n * 0.6);
+      sun.intensity = 1.35 * (1 - n * 0.85); hemi.intensity = 0.32 * (1 - n * 0.6);
       sun.color.copy(skyDay).lerp(skyNight, n);
-      renderer.toneMappingExposure = 1 - n * 0.25;
+      renderer.toneMappingExposure = 0.88 - n * 0.2;
 
-      ray.setFromCamera(ndc, camera);
-      const hov = !down && ray.intersectObject(active, true).length > 0;
-      document.body.classList.toggle('studio-hover', hov);
+      if (inside) {
+        ray.setFromCamera(ndc, camera);
+        document.body.classList.toggle('studio-hover', !down && ray.intersectObject(active, true).length > 0);
+      }
 
       Object.values(objects).forEach((o) => o.visible && o.userData.update && o.userData.update(t, dt));
       dust.material.uniforms.uTime.value = t;

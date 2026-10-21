@@ -6,6 +6,8 @@
    ========================================================= */
 (function () {
   'use strict';
+  // cores hexadecimais em sRGB (paleta da marca fiel na renderização)
+  if (window.THREE && THREE.ColorManagement) THREE.ColorManagement.legacyMode = false;
 
   /* ---------- SVG path (M/L/C/Z absolutos) → THREE.Shape[] ---------- */
   function logoShapes(scale) {
@@ -120,6 +122,8 @@
         spin.v = dx * 0.006; spin.y += spin.v; spin.lastX = e.clientX;
       }
     });
+    host.addEventListener('pointerenter', () => { st.inside = true; });
+    host.addEventListener('pointerleave', () => { st.inside = false; });
     canvas.addEventListener('pointerdown', (e) => { spin.dragging = true; spin.lastX = e.clientX; canvas.setPointerCapture(e.pointerId); document.body.classList.add('is-dragging'); });
     const up = () => { spin.dragging = false; document.body.classList.remove('is-dragging'); };
     canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
@@ -154,7 +158,7 @@
 
       // hover via raycast
       ray.setFromCamera(ndc, camera);
-      hoverT = ray.intersectObject(mesh).length ? 1 : 0;
+      hoverT = st.inside && ray.intersectObject(mesh).length ? 1 : 0;
       hover += (hoverT - hover) * 0.08;
       document.body.classList.toggle('hero-hover', hoverT === 1);
 
@@ -199,7 +203,7 @@
   }
 
   // partículas com desfoque por profundidade (bokeh) em shader
-  function makeDust(n) {
+  function makeDust(n, size) {
     const pos = new Float32Array(n * 3), seed = new Float32Array(n);
     for (let i = 0; i < n; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 30;
@@ -212,9 +216,9 @@
     g.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
     const m = new THREE.ShaderMaterial({
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { uTime: { value: 0 }, uFocus: { value: 20 } },
+      uniforms: { uTime: { value: 0 }, uFocus: { value: 20 }, uSize: { value: size || 1 } },
       vertexShader: `
-        attribute float seed; uniform float uTime; uniform float uFocus; varying float vA; varying float vB;
+        attribute float seed; uniform float uTime; uniform float uFocus; uniform float uSize; varying float vA; varying float vB;
         void main(){
           vec3 p = position;
           p.x += sin(uTime*0.15 + seed*40.0)*0.8 + uTime*0.12*(0.5+seed);
@@ -223,7 +227,7 @@
           vec4 mv = modelViewMatrix * vec4(p,1.0);
           float d = abs(-mv.z - uFocus);
           vB = clamp(d/10.0, 0.0, 1.0);
-          gl_PointSize = (2.0 + vB*26.0) * (18.0 / -mv.z);
+          gl_PointSize = (2.0 + vB*26.0) * (18.0 / -mv.z) * uSize;
           vA = (0.55 - vB*0.42) * (0.4 + seed*0.6);
           gl_Position = projectionMatrix * mv;
         }`,
